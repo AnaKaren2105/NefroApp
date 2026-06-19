@@ -82,9 +82,9 @@ function Navbar() {
         <button className="notification-btn">🔔</button>
 
         <NavLink to="/perfil" className="user-profile">
-          <div className="user-circle">U</div>
-          <span>Usuario</span>
-        </NavLink>
+         <div className="user-circle">A</div>
+         <span>Ana Karen</span>
+         </NavLink>
       </div>
     </nav>
   );
