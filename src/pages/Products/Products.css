@@ -1,0 +1,28 @@
+.products-page{
+    padding:60px;
+}
+
+.products-page h1{
+    color:var(--azul-oscuro);
+    margin-bottom:10px;
+}
+
+.products-description{
+    color:var(--gris);
+    margin-bottom:30px;
+}
+
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+@media (max-width:768px){
+    .products-page{
+        padding:20px;
+    }
+
+    .products-grid{
+        grid-template-columns:1fr;
+    }
+}

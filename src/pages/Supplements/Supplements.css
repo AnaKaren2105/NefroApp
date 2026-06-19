@@ -1,0 +1,28 @@
+.supplements-page{
+    padding:60px;
+}
+
+.supplements-page h1{
+    color:var(--azul-oscuro);
+    margin-bottom:10px;
+}
+
+.supplements-description{
+    color:var(--gris);
+    margin-bottom:30px;
+}
+
+.supplements-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+@media (max-width:768px){
+    .supplements-page{
+        padding:20px;
+    }
+
+    .supplements-grid{
+        grid-template-columns:1fr;
+    }
+}
