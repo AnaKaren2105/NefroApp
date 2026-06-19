@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import icono from "../../assets/icono.svg";
 
 function Navbar() {
   const [busqueda, setBusqueda] = useState("");
@@ -22,7 +23,9 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <div className="navbar-logo">FN</div>
+        <div className="navbar-logo">
+         <img src={icono} alt="Nefrópolis" />
+           </div>
 
         <div className="navbar-title">
           <h2>Farmacias</h2>
