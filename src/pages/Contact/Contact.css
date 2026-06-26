@@ -21,8 +21,14 @@
 .contact-card{
     background:white;
     padding:25px;
-    border-radius:15px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    border-radius:18px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.contact-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,.14);
 }
 
 .contact-card h3{
@@ -35,7 +41,9 @@
     margin-bottom:10px;
     line-height:1.5;
 }
+
 @media (max-width:768px){
+
     .contact-page{
         padding:20px;
     }
@@ -43,4 +51,5 @@
     .contact-grid{
         grid-template-columns:1fr;
     }
+
 }

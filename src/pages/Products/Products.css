@@ -12,14 +12,47 @@
     margin-bottom:30px;
 }
 
+.products-categories{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.products-categories button{
+    border:none;
+    padding:10px 16px;
+    border-radius:20px;
+    background:#f2f2f2;
+    cursor:pointer;
+    transition:.3s;
+    font-weight:600;
+}
+
+.products-categories button:hover{
+    background:var(--azul-claro);
+    color:white;
+}
+
+.products-categories .active{
+    background:var(--azul-oscuro);
+    color:white;
+}
+
 .products-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:20px;
 }
+
 @media (max-width:768px){
+
     .products-page{
         padding:20px;
+    }
+
+    .products-categories{
+        justify-content:center;
     }
 
     .products-grid{

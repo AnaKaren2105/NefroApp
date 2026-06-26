@@ -191,3 +191,137 @@
     background:transparent;
     cursor:pointer;
 }
+.search-container{
+  position:relative;
+}
+
+.search-results{
+  position:absolute;
+  top:48px;
+  right:0;
+  width:300px;
+  background:white;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+  padding:8px;
+  z-index:100;
+}
+
+.search-result-item{
+  width:100%;
+  border:none;
+  background:transparent;
+  text-align:left;
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.search-result-item:hover{
+  background:#f2f6fb;
+}
+
+.search-result-item strong{
+  color:var(--azul-oscuro);
+  font-size:.9rem;
+}
+
+.search-result-item span{
+  color:var(--gris);
+  font-size:.8rem;
+  line-height:1.3;
+}
+
+.search-no-results{
+  padding:12px;
+  color:var(--gris);
+  font-size:.85rem;
+}
+
+@media (max-width:768px){
+  .search-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+  }
+
+  .search-results{
+    top:48px;
+    right:auto;
+    width:90%;
+    max-width:320px;
+  }
+}
+
+.search-result-item.active{
+    background:rgba(153,182,141,.18);
+    border-left:4px solid var(--verde-sabio);
+}
+
+.search-result-item.active strong{
+    color:var(--azul-oscuro);
+}
+
+.search-result-item.active span{
+    color:var(--gris);
+}
+.notification-container{
+  position:relative;
+}
+
+.notification-btn{
+  position:relative;
+}
+
+.notification-dot{
+  position:absolute;
+  top:3px;
+  right:3px;
+  width:9px;
+  height:9px;
+  background:#d93025;
+  border-radius:50%;
+  border:2px solid white;
+}
+
+.notification-panel{
+  position:absolute;
+  top:48px;
+  right:0;
+  width:310px;
+  background:white;
+  border-radius:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+  padding:14px;
+  z-index:120;
+}
+
+.notification-panel h4{
+  color:var(--azul-oscuro);
+  margin-bottom:12px;
+}
+
+.notification-item{
+  background:#f7f9fb;
+  color:var(--gris);
+  padding:10px 12px;
+  border-radius:10px;
+  margin-bottom:8px;
+  line-height:1.4;
+  font-size:.85rem;
+}
+
+.notification-empty{
+  color:var(--gris);
+  font-size:.85rem;
+}
+
+@media (max-width:768px){
+  .notification-panel{
+    right:-80px;
+    width:280px;
+  }
+}
