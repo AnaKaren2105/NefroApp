@@ -202,11 +202,13 @@ function Home() {
         <div className="hero-content">
           <h1>Tu salud renal es nuestra prioridad</h1>
 
-          <p>
-            Información confiable, consejos de prevención y orientación para
-            promover hábitos saludables y una mejor calidad de vida.
-          </p>
-
+         <p>
+  Información confiable, consejos de prevención 
+   <br />
+  y orientación para promover hábitos saludables
+  <br />
+  y una mejor calidad de vida.
+</p>
           <button
             type="button"
             onClick={() => abrirModal("informacion")}

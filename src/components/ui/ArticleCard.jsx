@@ -1,9 +1,8 @@
 import "./ArticleCard.css";
 
-function ArticleCard({ imagen, titulo, descripcion }) {
+function ArticleCard({ imagen, titulo, descripcion, onLeerMas }) {
   return (
     <div className="article-card">
-
       <div className="article-image">
         <img src={imagen} alt={titulo} />
       </div>
@@ -12,8 +11,9 @@ function ArticleCard({ imagen, titulo, descripcion }) {
 
       <p>{descripcion}</p>
 
-      <button>Leer más</button>
-
+      <button type="button" onClick={onLeerMas}>
+        Leer más
+      </button>
     </div>
   );
 }
