@@ -1,16 +1,23 @@
 import "./Navbar.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import icono from "../../assets/icono.svg";
+import icono from "../../assets/logo_nefropolis.png";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [busqueda, setBusqueda] = useState("");
   const [mostrarResultados, setMostrarResultados] = useState(false);
   const [resultadoActivo, setResultadoActivo] = useState(0);
   const [mostrarNotificaciones, setMostrarNotificaciones] = useState(false);
   const [notificacionesLeidas, setNotificacionesLeidas] = useState(false);
+  const [usuarioActivo, setUsuarioActivo] = useState(null);
 
-  const navigate = useNavigate();
   const searchRef = useRef(null);
   const notificationRef = useRef(null);
 
@@ -19,6 +26,42 @@ function Navbar() {
     "Nuevo artículo disponible: Importancia de la hidratación.",
     "Consulta nuestros productos especializados para el cuidado renal.",
   ];
+
+  const actualizarUsuarioActivo = () => {
+    const sesionIniciada =
+      localStorage.getItem("usuarioAutenticado") === "true";
+
+    const usuarioGuardado = localStorage.getItem("usuarioActivo");
+
+    if (sesionIniciada && usuarioGuardado) {
+      try {
+        setUsuarioActivo(JSON.parse(usuarioGuardado));
+      } catch {
+        setUsuarioActivo(null);
+      }
+    } else {
+      setUsuarioActivo(null);
+    }
+  };
+
+  useEffect(() => {
+    actualizarUsuarioActivo();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const actualizarDesdeOtraPestana = () => {
+      actualizarUsuarioActivo();
+    };
+
+    window.addEventListener("storage", actualizarDesdeOtraPestana);
+
+    return () => {
+      window.removeEventListener(
+        "storage",
+        actualizarDesdeOtraPestana
+      );
+    };
+  }, []);
 
   const normalizar = (texto) =>
     texto
@@ -31,71 +74,68 @@ function Navbar() {
       titulo: "Inicio",
       descripcion: "Página principal de Farmacias Nefrópolis",
       ruta: "/",
-      palabras: ["inicio", "home", "principal", "nefropolis", "farmacias"],
-    },
-    {
-      titulo: "Artículos",
-      descripcion: "Consejos e información sobre salud renal",
-      ruta: "/articulos",
       palabras: [
-        "articulos",
-        "articulo",
-        "hidratacion",
-        "alimentacion",
-        "prevencion",
-        "nutricion",
-        "bienestar",
-        "salud renal",
-      ],
-    },
-    {
-      titulo: "Productos",
-      descripcion: "Catálogo de productos, suplementos y vitaminas",
-      ruta: "/productos",
-      palabras: [
-        "productos",
-        "producto",
-        "suplementos",
-        "suplemento",
-        "vitaminas",
-        "vitamina",
-        "renal",
-        "cuidado renal",
-        "accesorios",
+        "inicio",
+        "home",
+        "principal",
+        "nefropolis",
+        "farmacias",
       ],
     },
     {
       titulo: "Nosotros",
-      descripcion: "Conoce la misión, visión y valores de la empresa",
+      descripcion: "Conoce la misión, propósito y valores de la empresa",
       ruta: "/nosotros",
       palabras: [
         "nosotros",
         "empresa",
         "mision",
-        "vision",
+        "proposito",
         "valores",
         "quienes somos",
-        "farmacia",
+      ],
+    },
+    {
+      titulo: "Productos",
+      descripcion: "Catálogo de productos especializados",
+      ruta: "/productos",
+      palabras: [
+        "productos",
+        "suplementos",
+        "vitaminas",
+        "renal",
+        "accesorios",
+      ],
+    },
+    {
+      titulo: "Artículos",
+      descripcion: "Información y consejos sobre salud renal",
+      ruta: "/articulos",
+      palabras: [
+        "articulos",
+        "hidratacion",
+        "alimentacion",
+        "prevencion",
+        "nutricion",
       ],
     },
     {
       titulo: "Contacto",
-      descripcion: "Información para comunicarte con Farmacias Nefrópolis",
+      descripcion: "Sucursales y medios de contacto",
       ruta: "/contacto",
       palabras: [
         "contacto",
         "telefono",
         "correo",
-        "ubicacion",
         "direccion",
-        "mensaje",
+        "ubicacion",
       ],
     },
     {
       titulo: "Perfil",
-      descripcion: "Información del usuario registrado",
+      descripcion: "Información del usuario",
       ruta: "/perfil",
-      palabras: ["perfil", "usuario", "cuenta", "ana", "karen"],
+      palabras: ["perfil", "usuario", "cuenta"],
     },
   ];
 
@@ -107,13 +147,18 @@ function Navbar() {
     return (
       normalizar(pagina.titulo).includes(texto) ||
       normalizar(pagina.descripcion).includes(texto) ||
-      pagina.palabras.some((palabra) => normalizar(palabra).includes(texto))
+      pagina.palabras.some((palabra) =>
+        normalizar(palabra).includes(texto)
+      )
     );
   });
 
   useEffect(() => {
-    const cerrarAlHacerClickFuera = (e) => {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
+    const cerrar = (e) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(e.target)
+      ) {
         setMostrarResultados(false);
         setResultadoActivo(0);
       }
@@ -126,10 +171,10 @@ function Navbar() {
       }
     };
 
-    document.addEventListener("mousedown", cerrarAlHacerClickFuera);
+    document.addEventListener("mousedown", cerrar);
 
     return () => {
-      document.removeEventListener("mousedown", cerrarAlHacerClickFuera);
+      document.removeEventListener("mousedown", cerrar);
     };
   }, []);
 
@@ -137,7 +182,11 @@ function Navbar() {
     if (!resultado) return;
 
     if (resultado.ruta === "/articulos") {
-      navigate(`/articulos?buscar=${encodeURIComponent(busqueda.trim())}`);
+      navigate(
+        `/articulos?buscar=${encodeURIComponent(
+          busqueda.trim()
+        )}`
+      );
     } else {
       navigate(resultado.ruta);
     }
@@ -155,10 +204,9 @@ function Navbar() {
     if (resultados.length > 0) {
       irAResultado(resultados[resultadoActivo]);
     } else {
-      navigate(`/articulos?buscar=${encodeURIComponent(texto)}`);
-      setBusqueda("");
-      setMostrarResultados(false);
-      setResultadoActivo(0);
+      navigate(
+        `/articulos?buscar=${encodeURIComponent(texto)}`
+      );
     }
   };
 
@@ -180,25 +228,20 @@ function Navbar() {
       buscar();
     } else if (e.key === "Escape") {
       setMostrarResultados(false);
-      setResultadoActivo(0);
     }
   };
 
-  const abrirNotificaciones = () => {
-    setMostrarNotificaciones(!mostrarNotificaciones);
-    setNotificacionesLeidas(true);
-  };
+  const nombreUsuario =
+    usuarioActivo?.nombre?.trim() || "Usuario";
+
+  const inicialUsuario =
+    nombreUsuario.charAt(0).toUpperCase();
 
   return (
     <nav className="navbar">
       <div className="navbar-brand">
         <div className="navbar-logo">
           <img src={icono} alt="Nefrópolis" />
-        </div>
-
-        <div className="navbar-title">
-          <h2>Farmacias</h2>
-          <h2>Nefrópolis</h2>
         </div>
       </div>
 
@@ -210,8 +253,8 @@ function Navbar() {
         </li>
 
         <li>
-          <NavLink to="/articulos">
-            Artículos
+          <NavLink to="/nosotros">
+            Nosotros
           </NavLink>
         </li>
 
@@ -222,8 +265,8 @@ function Navbar() {
         </li>
 
         <li>
-          <NavLink to="/nosotros">
-            Nosotros
+          <NavLink to="/articulos">
+            Artículos
           </NavLink>
         </li>
 
@@ -235,7 +278,10 @@ function Navbar() {
       </ul>
 
       <div className="navbar-actions">
-        <div className="search-container" ref={searchRef}>
+        <div
+          className="search-container"
+          ref={searchRef}
+        >
           <div className="search-box">
             <input
               type="text"
@@ -250,45 +296,69 @@ function Navbar() {
               onKeyDown={presionarEnter}
             />
 
-            <button type="button" onClick={buscar} className="search-btn">
+            <button
+              type="button"
+              className="search-btn"
+              onClick={buscar}
+              aria-label="Buscar"
+            >
               🔍
             </button>
           </div>
 
-          {mostrarResultados && busqueda.trim() !== "" && (
-            <div className="search-results">
-              {resultados.length > 0 ? (
-                resultados.map((resultado, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    className={`search-result-item ${
-                      resultadoActivo === index ? "active" : ""
-                    }`}
-                    onClick={() => irAResultado(resultado)}
-                  >
-                    <strong>{resultado.titulo}</strong>
-                    <span>{resultado.descripcion}</span>
-                  </button>
-                ))
-              ) : (
-                <div className="search-no-results">
-                  No se encontraron resultados
-                </div>
-              )}
-            </div>
-          )}
+          {mostrarResultados &&
+            busqueda.trim() !== "" && (
+              <div className="search-results">
+                {resultados.length > 0 ? (
+                  resultados.map((resultado, index) => (
+                    <button
+                      type="button"
+                      key={resultado.ruta}
+                      className={`search-result-item ${
+                        resultadoActivo === index
+                          ? "active"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        irAResultado(resultado)
+                      }
+                    >
+                      <strong>
+                        {resultado.titulo}
+                      </strong>
+
+                      <span>
+                        {resultado.descripcion}
+                      </span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="search-no-results">
+                    No se encontraron resultados
+                  </div>
+                )}
+              </div>
+            )}
         </div>
 
-        <div className="notification-container" ref={notificationRef}>
+        <div
+          className="notification-container"
+          ref={notificationRef}
+        >
           <button
             type="button"
             className="notification-btn"
-            onClick={abrirNotificaciones}
+            aria-label="Notificaciones"
+            onClick={() => {
+              setMostrarNotificaciones(
+                !mostrarNotificaciones
+              );
+              setNotificacionesLeidas(true);
+            }}
           >
             🔔
 
-            {notificaciones.length > 0 && !notificacionesLeidas && (
+            {!notificacionesLeidas && (
               <span className="notification-dot"></span>
             )}
           </button>
@@ -297,24 +367,31 @@ function Navbar() {
             <div className="notification-panel">
               <h4>Notificaciones</h4>
 
-              {notificaciones.length > 0 ? (
-                notificaciones.map((notificacion, index) => (
-                  <div className="notification-item" key={index}>
-                    {notificacion}
-                  </div>
-                ))
-              ) : (
-                <p className="notification-empty">
-                  No tienes notificaciones.
-                </p>
-              )}
+              {notificaciones.map((item, index) => (
+                <div
+                  className="notification-item"
+                  key={index}
+                >
+                  {item}
+                </div>
+              ))}
             </div>
           )}
         </div>
 
-        <NavLink to="/perfil" className="user-profile">
-          <div className="user-circle">A</div>
-          <span>Ana Karen</span>
+        <NavLink
+          to={usuarioActivo ? "/perfil" : "/login"}
+          className="user-profile"
+        >
+          <div className="user-circle">
+            {usuarioActivo ? inicialUsuario : "👤"}
+          </div>
+
+          <span>
+            {usuarioActivo
+              ? nombreUsuario
+              : "Iniciar sesión"}
+          </span>
         </NavLink>
       </div>
     </nav>

@@ -1,14 +1,14 @@
 import "./FeatureCard.css";
 
-function FeatureCard({ imagen, titulo, descripcion }) {
+function FeatureCard({ icon, title, description }) {
   return (
     <div className="feature-card">
       <div className="feature-image">
-        <img src={imagen} alt={titulo} />
+        <img src={icon} alt={title} />
       </div>
 
-      <h3>{titulo}</h3>
-      <p>{descripcion}</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
   );
 }

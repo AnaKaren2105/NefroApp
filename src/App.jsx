@@ -7,6 +7,8 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Profile from "./pages/Profile/Profile";
 import Footer from "./components/layout/Footer";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
@@ -15,15 +17,16 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/articulos" element={<Articles />} />
+        <Route path="/nosotros" element={<About />} />
         <Route path="/productos" element={<Products />} />
-      <Route path="/nosotros" element={<About />} />
+        <Route path="/articulos" element={<Articles />} />
         <Route path="/contacto" element={<Contact />} />
-       <Route path="/perfil" element={<Profile />} />
+        <Route path="/perfil" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Register />} />
       </Routes>
 
-        <Footer />
-
+      <Footer />
     </BrowserRouter>
   );
 }

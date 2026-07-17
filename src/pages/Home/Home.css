@@ -23,6 +23,7 @@
     font-size:1.1rem;
     margin-bottom:25px;
     color:var(--gris);
+    line-height:1.6;
 }
 
 .hero-content button{
@@ -33,6 +34,17 @@
     border-radius:8px;
     cursor:pointer;
     margin-bottom:90px;
+    font-weight:600;
+    transition:
+        background .3s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.hero-content button:hover{
+    background:var(--azul-oscuro);
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(29,44,109,.18);
 }
 
 .kidney-shape{
@@ -40,7 +52,12 @@
     width:180px;
     height:180px;
     border-radius:50%;
-    background:linear-gradient(135deg, var(--verde-sabio), var(--azul-claro), var(--azul-oscuro));
+    background:linear-gradient(
+        135deg,
+        var(--verde-sabio),
+        var(--azul-claro),
+        var(--azul-oscuro)
+    );
     display:flex;
     justify-content:center;
     align-items:center;
@@ -54,11 +71,354 @@
     height:auto;
 }
 
-.features{
-    margin-top:120px;
+.home .features{
+    max-width:1000px;
+    margin:80px auto 0;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+    align-items:stretch;
+}
+
+.feature-card-action{
+    height:100%;
+    cursor:pointer;
+    border-radius:15px;
+    outline:none;
+}
+
+.feature-card-action .feature-card{
+    height:100%;
+}
+
+.feature-card-action:focus-visible{
+    box-shadow:0 0 0 3px rgba(129,176,221,.45);
+}
+
+.home-modal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+    overflow-y:auto;
+    background:rgba(29,44,109,.60);
+    backdrop-filter:blur(3px);
+}
+
+.home-modal{
+    position:relative;
+    width:min(950px,100%);
+    max-height:90vh;
+    overflow-y:auto;
+    background:white;
+    border-radius:22px;
+    padding:34px;
+    box-shadow:0 18px 45px rgba(0,0,0,.24);
+}
+
+.home-modal-close{
+    position:absolute;
+    top:16px;
+    right:18px;
+    width:38px;
+    height:38px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border:none;
+    border-radius:50%;
+    background:#eef3f7;
+    color:var(--azul-oscuro);
+    font-size:1.7rem;
+    line-height:1;
+    cursor:pointer;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .25s ease;
+}
+
+.home-modal-close:hover{
+    background:var(--azul-oscuro);
+    color:white;
+    transform:rotate(90deg);
+}
+
+.home-modal-header{
+    padding-right:45px;
+    margin-bottom:28px;
+}
+
+.home-modal-header span{
+    display:inline-block;
+    margin-bottom:10px;
+    padding:7px 14px;
+    border-radius:20px;
+    background:rgba(153,182,141,.18);
+    color:var(--azul-oscuro);
+    font-size:.86rem;
+    font-weight:600;
+}
+
+.home-modal-header h2{
+    margin:0 0 12px;
+    color:var(--azul-oscuro);
+    font-size:2rem;
+}
+
+.home-modal-header p{
+    margin:0;
+    color:var(--gris);
+    line-height:1.7;
+}
+
+.home-modal-content{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.home-info-item{
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    border:1px solid #e7ebee;
+    border-top:4px solid var(--verde-sabio);
+    border-radius:14px;
+    background:#fafbfc;
+}
+
+.home-info-item h3{
+    margin:0 0 10px;
+    color:var(--azul-oscuro);
+    font-size:1.08rem;
+}
+
+.home-info-item p{
+    margin:0;
+    color:var(--gris);
+    line-height:1.6;
+    font-size:.95rem;
+}
+
+.home-source-link{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    align-self:flex-start;
+    margin-top:18px;
+    color:var(--azul-oscuro);
+    font-size:.93rem;
+    font-weight:700;
+    text-decoration:none;
+    transition:
+        color .25s ease,
+        transform .25s ease;
+}
+
+.home-source-link:hover{
+    color:var(--azul-claro);
+    transform:translateX(3px);
+}
+
+.home-source-name{
+    display:block;
+    margin-top:7px;
+    color:#858585;
+    font-size:.78rem;
+    line-height:1.45;
+}
+
+.home-source-name strong{
+    color:var(--gris);
+}
+
+.home-modal-warning{
+    margin:24px 0 0;
+    padding:15px 18px;
+    border-radius:12px;
+    background:rgba(129,176,221,.13);
+    color:var(--azul-oscuro);
+    line-height:1.6;
+    font-size:.9rem;
+}
+
+.home-modal-button{
+    display:block;
+    margin:24px 0 0 auto;
+    border:none;
+    border-radius:10px;
+    background:var(--verde-sabio);
+    color:white;
+    padding:12px 26px;
+    font-weight:600;
+    cursor:pointer;
+    transition:
+        background .3s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.home-modal-button:hover{
+    background:var(--azul-oscuro);
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(29,44,109,.18);
+}
+
+.home-nutrition-layout{
+    display:grid;
+    grid-template-columns:minmax(280px,.9fr) minmax(320px,1.1fr);
+    gap:25px;
+    align-items:start;
+}
+
+.home-nutrition-image{
+    width:100%;
+    min-height:320px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    border-radius:16px;
+    background:#f4f6f8;
+    border:1px solid #e7ebee;
+}
+
+.home-nutrition-image img{
+    width:100%;
+    height:auto;
+    display:block;
+    object-fit:contain;
+}
+
+.home-nutrition-placeholder{
+    padding:40px 25px;
+    color:var(--gris);
+    text-align:center;
+    line-height:1.6;
+}
+
+.home-nutrition-info{
+    padding:22px;
+    border-radius:16px;
+    background:#fafbfc;
+    border-top:4px solid var(--verde-sabio);
+}
+
+.home-nutrition-info h3{
+    margin:0 0 12px;
+    color:var(--azul-oscuro);
+}
+
+.home-nutrition-info p{
+    margin:0 0 14px;
+    color:var(--gris);
+    line-height:1.7;
+}
+
+.home-nutrition-list{
+    margin:18px 0 0;
+    padding-left:20px;
+    color:var(--gris);
+    line-height:1.8;
+}
+
+.home-nutrition-note{
+    margin-top:20px;
+    padding:14px 16px;
+    border-radius:12px;
+    background:rgba(153,182,141,.15);
+    color:var(--azul-oscuro);
+    line-height:1.6;
+    font-size:.9rem;
+}
+
+.home-prevention-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.home-prevention-item{
+    padding:20px;
+    border-radius:14px;
+    border:1px solid #e7ebee;
+    border-left:5px solid var(--azul-claro);
+    background:#fafbfc;
+}
+
+.home-prevention-item h3{
+    margin:0 0 10px;
+    color:var(--azul-oscuro);
+    font-size:1.08rem;
+}
+
+.home-prevention-item p{
+    margin:0;
+    color:var(--gris);
+    line-height:1.6;
+    font-size:.95rem;
+}
+
+.home-disease-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.home-disease-item{
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    border-radius:14px;
+    border:1px solid #e7ebee;
+    border-top:4px solid var(--azul-claro);
+    background:#fafbfc;
+}
+
+.home-disease-item h3{
+    margin:0 0 10px;
+    color:var(--azul-oscuro);
+    font-size:1.08rem;
+}
+
+.home-disease-item p{
+    margin:0;
+    color:var(--gris);
+    line-height:1.6;
+    font-size:.95rem;
+}
+
+.home-disease-relation{
+    grid-column:1 / -1;
+    padding:20px;
+    border-radius:14px;
+    background:rgba(153,182,141,.15);
+}
+
+.home-disease-relation h3{
+    margin:0 0 10px;
+    color:var(--azul-oscuro);
+}
+
+.home-disease-relation p{
+    margin:0;
+    color:var(--gris);
+    line-height:1.7;
+}
+
+@media (max-width:900px){
+
+    .home-nutrition-layout{
+        grid-template-columns:1fr;
+    }
+
+    .home-disease-grid{
+        grid-template-columns:1fr 1fr;
+    }
 }
 
 @media (max-width:768px){
@@ -87,19 +447,88 @@
         font-size:1rem;
     }
 
+    .hero-content button{
+        margin-bottom:40px;
+    }
+
     .kidney-shape{
-    flex:none;
-    width:300px;
-    height:120px;
-    margin:60px auto 60px auto;
-}
+        flex:none;
+        width:300px;
+        height:120px;
+        margin:40px auto 60px;
+    }
 
     .kidney-shape img{
         width:165%;
         max-width:750px;
     }
 
-    .features{
+    .home .features{
         grid-template-columns:1fr;
+        margin-top:60px;
+    }
+
+    .home-modal-overlay{
+        padding:15px;
+        align-items:flex-start;
+    }
+
+    .home-modal{
+        margin:20px 0;
+        padding:26px 20px;
+        border-radius:18px;
+        max-height:none;
+    }
+
+    .home-modal-header{
+        padding-right:35px;
+    }
+
+    .home-modal-header h2{
+        font-size:1.6rem;
+    }
+
+    .home-modal-content,
+    .home-prevention-grid,
+    .home-disease-grid{
+        grid-template-columns:1fr;
+    }
+
+    .home-info-item,
+    .home-prevention-item,
+    .home-disease-item{
+        padding:17px;
+    }
+
+    .home-disease-relation{
+        grid-column:auto;
+    }
+
+    .home-nutrition-image{
+        min-height:220px;
+    }
+
+    .home-modal-button{
+        width:100%;
+    }
+}
+
+@media (max-width:390px){
+
+    .home{
+        padding:16px;
+    }
+
+    .hero-content h1{
+        font-size:1.8rem;
+    }
+
+    .kidney-shape{
+        width:250px;
+        height:105px;
+    }
+
+    .home-modal{
+        padding:24px 16px;
     }
 }

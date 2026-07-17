@@ -1,23 +1,23 @@
 import "./ProductCard.css";
 
-function ProductCard({ nombre, descripcion, precio }) {
+function ProductCard({ nombre, descripcion, categoria }) {
   return (
     <div className="product-card">
 
       <div className="product-image">
-       <span>🧴</span>
-       </div>
+        <span>🧴</span>
+      </div>
 
       <h3>{nombre}</h3>
 
       <p>{descripcion}</p>
 
-      <span className="price">
-        ${precio}
+      <span className="product-category">
+        {categoria}
       </span>
 
       <button>
-        Ver más
+        Ver información
       </button>
 
     </div>
